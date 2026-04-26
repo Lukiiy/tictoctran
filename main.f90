@@ -1,7 +1,7 @@
 program main
     implicit none
-    
-    write(*,*) 'X  O  X'
-    write(*,*) 'O  X  O'
-    write(*,*) 'X  O  X'
+
+    print *, "X  O  X"
+    print *, "O  X  O"
+    print *, "X  O  X"
 end program main

@@ -1,0 +1,1 @@
+gfortran -std=f2008 -Wall -Wextra -O2 main.f90 -o main

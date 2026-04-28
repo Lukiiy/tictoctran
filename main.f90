@@ -2,7 +2,7 @@ program main
     implicit none
 
     character :: board(3, 3)
-    character :: player
+    character :: player = 'X'
     integer :: turn
     integer :: row
     integer :: column
@@ -11,7 +11,6 @@ program main
     character, parameter :: EMPTY = '.'
 
     call initBoard(board)
-    player = "X"
 
     do turn = 1, 9
         call printBoard(board)

@@ -10,11 +10,14 @@ program main
     logical :: valid
     character, parameter :: EMPTY = '.'
 
+    ! initialize "title" screen
+    print *, "TicTacToe, but written in Fortran!"
+
     call initBoard(board)
 
     do turn = 1, 9
         call printBoard(board)
-        
+
         valid = .false.
 
         do while (.not. valid)
@@ -34,24 +37,24 @@ program main
                 valid = .true.
             end if
         end do
-    
+
         board(row, column) = player
         winner = checkWinner(board)
-    
+
         if (winner /= 0) then
             call printBoard(board)
 
             print *, "Player ", player, " wins! "
             stop
         end if
-    
+
         if (turn == 9) then
             call printBoard(board)
 
             print *, "It's a draw!"
             stop
         end if
-    
+
         if (player == 'X') then
             player = 'O'
         else
@@ -79,12 +82,12 @@ contains
         print *, " "
     end subroutine
 
-    integer function checkWinner(b) ! Check if a player has won in a given board. 
+    integer function checkWinner(b) ! Check if a player has won in a given board.
         character, intent(in) :: b(3,3)
         integer :: idx
 
         checkWinner = 0
-    
+
         ! Rows and columns
         do idx = 1, 3
             if (b(idx, 1) /= EMPTY .and. b(idx, 1) == b(idx, 2) .and. b(idx, 2) == b(idx, 3)) then
@@ -97,7 +100,7 @@ contains
                 return
             end if
         end do
-    
+
         ! Diagonals (top left -> bottom right)
         if (b(1, 1) /= EMPTY .and. b(1, 1) == b(2, 2) .and. b(2, 2) == b(3, 3)) then
             checkWinner = 1

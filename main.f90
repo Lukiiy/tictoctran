@@ -10,7 +10,7 @@ program main
     logical :: valid
     character, parameter :: EMPTY = '.'
 
-    ! initialize "title" screen
+    ! the "title"
     print *, "TicTacToe, but written in Fortran!"
 
     call initBoard(board)
@@ -21,7 +21,7 @@ program main
         valid = .false.
 
         do while (.not. valid)
-            write(*, "(A)", advance = "no") "Enter row and column (example: '1 3'): "
+            write(*, "(A,A,A)", advance = "no") "Player ", player, ', enter row and column (example: "1 3"): '
             read(*, *, iostat = winner) row, column
 
             if (winner /= 0) then

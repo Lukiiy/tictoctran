@@ -21,7 +21,7 @@ program main
         valid = .false.
 
         do while (.not. valid)
-            write(*, "(A,A,A)", advance = "no") "Player ", player, ', enter row and column (example: "1 3"): '
+            write(*, "(A,A,A)", advance = "no") " Player ", player, ', enter row and column (example: "1 3"): '
             read(*, *, iostat = winner) row, column
 
             if (winner /= 0) then
@@ -44,7 +44,7 @@ program main
         if (winner /= 0) then
             call printBoard(board)
 
-            print *, "Player ", player, " wins! "
+            print *, "Player ", player, " wins!"
             stop
         end if
 

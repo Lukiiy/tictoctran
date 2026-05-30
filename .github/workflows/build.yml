@@ -1,0 +1,59 @@
+name: Compile
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build for ${{ matrix.name }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: windows-x86_64
+            os: windows-latest
+            suffix: -x86_64.exe
+
+          - name: windows-arm
+            os: windows-11-arm
+            suffix: -arm.exe
+
+          - name: macos-intel
+            os: macos-15-intel
+            suffix: -macOS-intel
+
+          - name: macos-arm
+            os: macos-latest
+            suffix: -macOS-arm
+
+          - name: linux-x86_64
+            os: ubuntu-latest
+            suffix: -linux
+
+          - name: linux-arm
+            os: ubuntu-24.04-arm
+            suffix: -linux-arm
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup Fortran
+        uses: fortran-lang/setup-fortran@v1.9.0
+        with:
+          compiler: gcc
+          version: latest
+
+      - name: Build
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          "${FC:-gfortran}" -std=f2008 -Wall -Wextra -O2 main.f90 -o "dist/tictactoe${{ matrix.suffix }}"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v6
+        with:
+          name: tictactoe-${{ matrix.name }}
+          path: dist/tictactoe${{ matrix.suffix }}

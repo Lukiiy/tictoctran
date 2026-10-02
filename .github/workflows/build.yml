@@ -46,11 +46,7 @@ jobs:
         run: |
           mkdir -p dist
 
-          if [[ "${{ matrix.suffix }}" == *".exe"* ]]; then
-            "${FC:-gfortran}" -static -Wall -Wextra -O2 main.f90 -o "dist/tictactoe${{ matrix.suffix }}"
-          else
-            "${FC:-gfortran}" -Wall -Wextra -O2 main.f90 -o "dist/tictactoe${{ matrix.suffix }}"
-          fi
+          "${FC:-gfortran}" -static-libgfortran -static-libgcc -Wall -Wextra -O2 main.f90 -o "dist/tictactoe${{ matrix.suffix }}"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v6
